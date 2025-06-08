@@ -16,13 +16,16 @@ export default withAuth(
                 }
                 return !!token
             }
-        }
+        },pages: {
+      signIn: "/login", 
+    },
     }
 )
 
 
 export const config = {
     matcher: [
+         "/upload",
         "/((?!_next/static|_next/image|favicon.ico|.*\\.svg|.*\\.png|.*\\.jpg|.*\\.jpeg|.*\\.webp|.*\\.ico|.*\\.js|.*\\.css|.*\\.txt|.*\\.json).*)",
       ],
   };

@@ -31,7 +31,8 @@ export const authOptions: NextAuthOptions = {
                    }
                    return{
                     id: user._id.toString(),
-                    email: user.email
+                    email: user.email,
+                    image:user.coverImage
                    }
                 }catch(error){
                     throw error

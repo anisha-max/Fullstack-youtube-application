@@ -7,7 +7,6 @@ import { apiClient } from "../lib/api-client"
 import { useState , useEffect } from "react";
 
 export default function Home() {
-  const [uploadedUrl, setUploadedUrl] = useState("");
     const [videos, setVideos] = useState<IVideo[]>([]);
 
   useEffect(() => {
@@ -135,7 +134,7 @@ export default function Home() {
     //   </footer>
     // </div>
      <main className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8">ImageKit ReelsPro</h1>
+      <h1 className="text-3xl font-bold mb-8">My Youtube</h1>
       <VideoFeed videos={videos} />
     </main>
   );

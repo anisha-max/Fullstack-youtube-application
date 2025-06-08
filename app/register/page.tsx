@@ -2,9 +2,11 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import FileUpload from "../components/FileUpload";
 
 export default function RegisterPage() {
   const router = useRouter();
+  const [uploadedUrl, setUploadedUrl] = useState("");
 
   const [form, setForm] = useState({
     username: "",
@@ -24,12 +26,12 @@ export default function RegisterPage() {
     e.preventDefault();
     setLoading(true);
     setError("");
-
+    const updatedForm = { ...form, coverImage: uploadedUrl };
     try {
       const res = await fetch("/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify(updatedForm),
       });
 
       const data = await res.json();
@@ -48,7 +50,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-sky-900">
+    <div className="flex items-center justify-center min-h-screen ">
       <div className="w-full max-w-md p-8 bg-white shadow-xl rounded-2xl">
         <h1 className="text-3xl font-bold text-center text-sky-900 mb-6">
           Register
@@ -80,13 +82,18 @@ export default function RegisterPage() {
             onChange={handleChange}
             className="border border-sky-200 rounded p-2 focus:outline-none focus:ring-2 focus:ring-sky-900 text-black"
           />
-          <input
-            name="coverImage"
-            placeholder="Cover Image URL"
-            value={form.coverImage}
-            onChange={handleChange}
-            className="border border-sky-200 rounded p-2 focus:outline-none focus:ring-2 focus:ring-sky-900 text-black"
+          <FileUpload
+            fileType="image"
+            onProgress={(p) => console.log("Progress:", p)}
+            onSuccess={(res) => setUploadedUrl(res.url)}
           />
+
+          {uploadedUrl && (
+            <div className="mt-4">
+              <p className="text-sm text-gray-600">Uploaded File:</p>
+              <img src={uploadedUrl} alt="Preview" className="w-64 rounded shadow" />
+            </div>
+          )}
           <button
             type="submit"
             disabled={loading}
