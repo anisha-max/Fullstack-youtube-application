@@ -33,11 +33,17 @@ export async function POST(request: NextRequest) {
             { status: 201 }
         )
 
-    } catch (error :any) {
-        console.error("Registration error:", error.message || error);
-        return NextResponse.json(
-            { error: "Cannot register user" },
-            { status: 500 }
-        )
+    }  catch (error: unknown) {
+    let errorMessage = "Unknown error";
+
+    if (error instanceof Error) {
+        errorMessage = error.message;
     }
+
+    console.error("Registration error:", errorMessage);
+    return NextResponse.json(
+        { error: "Cannot register user" },
+        { status: 500 }
+    );
+}
 }

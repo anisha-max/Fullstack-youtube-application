@@ -42,11 +42,15 @@ export default function RegisterPage() {
       }
 
       router.push("/login");
-    } catch (err: any) {
-      setError(err.message || "Something went wrong");
-    } finally {
-      setLoading(false);
-    }
+    } catch (err: unknown) {
+  if (err instanceof Error) {
+    setError(err.message);
+  } else {
+    setError("Something went wrong");
+  }
+} finally {
+  setLoading(false);
+}
   };
 
   return (
@@ -58,7 +62,7 @@ export default function RegisterPage() {
 
         {error && <p className="text-red-900 text-center mb-4">{error}</p>}
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4 text-black">
           <input
             name="username"
             placeholder="Username"

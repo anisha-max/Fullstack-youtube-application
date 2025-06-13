@@ -39,11 +39,10 @@ export default function Header() {
             <>
               <div className="flex items-center gap-2">
                 <div className="w-10 h-10 rounded-full overflow-hidden border border-white shadow shrink-0">
-                  <IKImage
-                    path={session.user?.image || ""}
-                    transformation={[{ height: "40", width: "40" }]}
-                    alt={session.user.email || "User"}
-                    className=" object-cover"
+                  <img
+                    src={`https://ik.imagekit.io/anisha/tr:h-40,w-40/${session.user?.image}`}
+                    alt="user"
+                    className="w-10 h-10 rounded-full object-cover border border-white shadow"
                   />
                 </div>
                 <span className="text-white text-sm hidden lg:block">
