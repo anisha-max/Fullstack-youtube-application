@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
                 { status: 400 }
             )
         }
-        const newUser = await User.create({
+         await User.create({
             username,
             email,
             password,

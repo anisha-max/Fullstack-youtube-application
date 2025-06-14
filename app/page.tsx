@@ -1,6 +1,4 @@
 "use client"
-import Image from "next/image";
-import FileUpload from "./components/FileUpload";
 import VideoFeed from "./components/VideoFeed";
 import { IVideo } from "../models/Video";
 import { apiClient } from "../lib/api-client"

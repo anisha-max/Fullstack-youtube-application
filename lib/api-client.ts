@@ -4,7 +4,7 @@ export type VideoFormData = Omit<IVideo, "_id">;
 
 type FetchOptions = {
   method?: "GET" | "POST" | "PUT" | "DELETE";
-  body?: any;
+  body?:  BodyInit | object | null;
   headers?: Record<string, string>;
 };
 
@@ -15,6 +15,10 @@ class ApiClient {
   ): Promise<T> {
     const { method = "GET", body, headers = {} } = options;
 
+        const isFormData = body instanceof FormData;
+    const isPlainObject =
+      typeof body === "object" && body !== null && !isFormData;
+
     const defaultHeaders = {
       "Content-Type": "application/json",
       ...headers,
@@ -23,7 +27,7 @@ class ApiClient {
     const response = await fetch(`/api${endpoint}`, {
       method,
       headers: defaultHeaders,
-      body: body ? JSON.stringify(body) : undefined,
+      body:isPlainObject ? JSON.stringify(body) : (body as BodyInit | null),
     });
 
     if (!response.ok) {

@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
-import { Home, Menu, X, User } from "lucide-react";
+import { Home, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { useNotification } from "./Notification";
-import { IKImage } from "imagekitio-next";
+
 
 export default function Header() {
   const { data: session } = useSession();
