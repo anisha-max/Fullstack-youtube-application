@@ -1,14 +1,24 @@
 import { NextRequest, NextResponse } from "next/server";
 import { connectToDB } from "../../../../lib/mongodb";
 import Video from "../../../../models/Video";
+import { Types } from "mongoose";
 
 export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
-  await connectToDB();
-  const video = await Video.findById(params.id);
+  try {
+    await connectToDB();
 
-  if (!video) {
-    return NextResponse.json({ message: "Video not found" }, { status: 404 });
+    if (!Types.ObjectId.isValid(params.id)) {
+      return NextResponse.json({ message: "Invalid ID" }, { status: 400 });
+    }
+
+    const video = await Video.findById(params.id);
+
+    if (!video) {
+      return NextResponse.json({ message: "Video not found" }, { status: 404 });
+    }
+
+    return NextResponse.json(video);
+  } catch (err) {
+    return NextResponse.json({ message: "Server error", error: (err as Error).message }, { status: 500 });
   }
-
-  return NextResponse.json(video);
 }
