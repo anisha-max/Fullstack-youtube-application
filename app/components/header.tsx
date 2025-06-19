@@ -23,15 +23,15 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-40  shadow-sm">
-      <nav className="container mx-auto px-4 py-2 flex justify-between bg-zinc-800 items-center">
+      <nav className="container mx-auto px-4 py-2 flex justify-between secondary-bg items-center">
 
         <Link
           href="/"
-          className="flex items-center gap-2 font-bold text-xl btn btn-ghost"
-          onClick={() => showNotification("Welcome to ImageKit ReelsPro", "info")}
+          className="flex items-center gap-2 font-bold text-xl  text-blue-100 btn btn-ghost"
+          onClick={() => showNotification("Welcome to Video Web", "info")}
         >
           <Home className="w-5 h-5" />
-          ImageKit ReelsPro
+          Video Web
         </Link>
 
         <div className="hidden md:flex items-center gap-4">
@@ -44,22 +44,28 @@ export default function Header() {
                     alt="user"
                     className="w-10 h-10 rounded-full object-cover border border-white shadow"
                   />
+                    {/* <IKImage
+                    src={session?.user?.image || ""}
+                    transformation={[{ height: "10", width: "10" }]}
+                    alt="user"
+                    className="w-10 h-10 rounded-full object-cover border border-white shadow"
+                  /> */}
                 </div>
-                <span className="text-white text-sm hidden lg:block">
+                <span className="text-blue-100 text-sm hidden lg:block">
                   {session.user?.email?.split("@")[0]}
                 </span>
               </div>
 
               <Link
                 href="/upload"
-                className="btn btn-sm btn-outline text-white border-white"
+                className="primary-btn rounded-2xl px-3 py-1  text-white"
                 onClick={() => showNotification("Welcome to Admin Dashboard", "info")}
               >
                 Upload
               </Link>
               <button
                 onClick={handleSignOut}
-                className="btn btn-sm btn-error text-white"
+                className="btn danger-btn text-white rounded-2xl px-3 py-1 "
               >
                 Sign Out
               </button>

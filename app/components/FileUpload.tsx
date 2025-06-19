@@ -75,7 +75,7 @@ export default function FileUpload({ onSuccess, onProgress, fileType }: FileUplo
         onSuccess={handleSuccess}
         onUploadProgress={handleProgress}
         onUploadStart={handleStartUpload}
-        folder={fileType === "video" ? "/videos" : "images"}
+        folder={fileType === "video" ? "/videos" : "/images"}
       />
       {
         uploading && (

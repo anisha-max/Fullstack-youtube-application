@@ -29,11 +29,14 @@ export const authOptions: NextAuthOptions = {
                    if(!isValid){
                     throw new Error("Invalid password")
                    }
+                   console.log(user.username)
                    return{
                     id: user._id.toString(),
                     email: user.email,
-                    image:user.coverImage
+                    image:user.coverImage,
+                    name:user.username,
                    }
+                   
                 }catch(error){
                     throw error
                 }

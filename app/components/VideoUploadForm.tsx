@@ -80,7 +80,7 @@ export default function VideoUploadForm() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="max-w-xl mx-auto p-6 bg-white shadow-md rounded-2xl space-y-6 text-black"
+      className="max-w-xl mx-auto p-6 bg-white drop-shadow-[0_0_4px_rgba(9,51,60,0.5)] rounded-2xl space-y-6 text-black "
     >
       <h2 className="text-2xl font-semibold text-sky-900 mb-4">Upload a New Video</h2>
 
@@ -106,7 +106,7 @@ export default function VideoUploadForm() {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-sky-900 mb-1">Upload Video</label>
+        <label className="block text-sm font-medium  mb-1">Upload Video</label>
         <FileUpload
           fileType="video"
           onSuccess={handleUploadSuccess}

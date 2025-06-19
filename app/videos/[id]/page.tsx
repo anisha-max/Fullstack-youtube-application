@@ -7,8 +7,8 @@ import { IVideo } from "../../../models/Video";
 import { IKVideo } from "imagekitio-next";
 
 export default function VideoPage() {
-const params = useParams();
-const id = params.id as string;
+  const params = useParams();
+  const id = params.id as string;
   const [video, setVideo] = useState<IVideo | null>(null);
 
   useEffect(() => {
@@ -28,13 +28,15 @@ const id = params.id as string;
 
   return (
     <div className="p-4">
-      <h1 className="text-xl font-bold mb-2">{video.title}</h1>
-   <IKVideo
-  path={video.videoUrl} 
-  transformation={[{ height: "720", width: "1280" }]}
-  controls
-  className="w-full rounded shadow-lg"
-/>
-    </div>
+      <h1 className="text-xl font-bold mb-2 rounded-3xl ">{video.title}</h1>
+    
+        <IKVideo
+        path={video.videoUrl}
+        transformation={[{ height: "460", width: "820" }]}
+        controls
+        className="h-[460px] w-[820px] rounded-3xl  object-cover"
+      />
+      </div>
+   
   );
 }
