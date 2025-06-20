@@ -1,7 +1,7 @@
 "use client"
 import Link from 'next/link'
-import React, { useEffect, useState } from 'react'
-import { apiClient } from '../../lib/api-client';
+import React from 'react'
+// import { apiClient } from '../../lib/api-client';
 // import { IVideo } from '../../models/Video';
 import { useSession } from 'next-auth/react';
 import { IKImage } from 'imagekitio-next';
@@ -9,19 +9,19 @@ import { IKImage } from 'imagekitio-next';
 function ProfilePage() {
    const { data: session } = useSession()
   //  const [videos, setVideos] = useState<IVideo[]>([]);
-  useEffect(() => {
-    const fetchVideos = async () => {
-      try {
-        const data = await apiClient.getVideos();
+  // useEffect(() => {
+  //   const fetchVideos = async () => {
+  //     try {
+        // const data = await apiClient.getVideos();
 
         // setVideos(data);
-      } catch (error) {
-        console.error("Error fetching videos:", error);
-      }
-    };
+  //     } catch (error) {
+  //       console.error("Error fetching videos:", error);
+  //     }
+  //   };
 
-    fetchVideos();
-  }, []);
+  //   fetchVideos();
+  // }, []);
   return (
     <>
       <div className="flex justify-center mt-10">
