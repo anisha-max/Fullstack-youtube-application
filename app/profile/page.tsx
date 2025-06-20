@@ -7,8 +7,8 @@ import { useSession } from 'next-auth/react';
 import { IKImage } from 'imagekitio-next';
 
 function ProfilePage() {
-  const { data: session } = useSession()
-  // const [videos, setVideos] = useState<IVideo[]>([]);
+   const { data: session } = useSession()
+  //  const [videos, setVideos] = useState<IVideo[]>([]);
   useEffect(() => {
     const fetchVideos = async () => {
       try {
