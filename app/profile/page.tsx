@@ -1,21 +1,20 @@
 "use client"
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
-import VideoFeed from '../components/VideoFeed'
 import { apiClient } from '../../lib/api-client';
-import { IVideo } from '../../models/Video';
+// import { IVideo } from '../../models/Video';
 import { useSession } from 'next-auth/react';
 import { IKImage } from 'imagekitio-next';
 
-function page() {
+function ProfilePage() {
   const { data: session } = useSession()
-  const [videos, setVideos] = useState<IVideo[]>([]);
+  // const [videos, setVideos] = useState<IVideo[]>([]);
   useEffect(() => {
     const fetchVideos = async () => {
       try {
         const data = await apiClient.getVideos();
 
-        setVideos(data);
+        // setVideos(data);
       } catch (error) {
         console.error("Error fetching videos:", error);
       }
@@ -61,4 +60,4 @@ function page() {
   )
 }
 
-export default page
+export default ProfilePage
