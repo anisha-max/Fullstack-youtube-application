@@ -29,11 +29,11 @@ function ProfilePage() {
           <>
             <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm drop-shadow-[0_0_4px_rgba(9,51,60,0.5)] ">
               <div className="flex flex-col items-center pb-10">
-                <IKImage src={session?.user?.image || ""}
+                {/* <IKImage src={session?.user?.image || ""}
                   transformation={[{ height: "20", width: "20" }]}
                   alt={session?.user?.name || "User Image"}
-                  className="w-20 h-20 mb-3 rounded-full mt-2 shadow-lg drop-shadow-[0_0_4px_rgba(9,51,60,0.5)]" />
-                {/* <img className="w-24 h-24 mb-3 rounded-full mt-2 shadow-lg drop-shadow-[0_0_4px_rgba(9,51,60,0.5)]"  src={`https://ik.imagekit.io/anisha/tr:h-40,w-40/${session.user?.image}`} alt="Profile Pic" /> */}
+                  className="w-20 h-20 mb-3 rounded-full mt-2 shadow-lg drop-shadow-[0_0_4px_rgba(9,51,60,0.5)]" /> */}
+                 <img className="w-24 h-24 mb-3 rounded-full mt-2 shadow-lg drop-shadow-[0_0_4px_rgba(9,51,60,0.5)]"  src={`https://ik.imagekit.io/anisha/tr:h-40,w-40/${session.user?.image}`} alt="Profile Pic" /> 
                 <h5 className="mb-1 text-xl font-medium text-gray-900 "> {session.user?.email?.split("@")[0]}</h5>
                 <span className="text-sm "> {session?.user?.name}</span>
                 <div className="flex mt-4 md:mt-6">
