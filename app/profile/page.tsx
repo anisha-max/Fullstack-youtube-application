@@ -4,7 +4,7 @@ import React from 'react'
 // import { apiClient } from '../../lib/api-client';
 // import { IVideo } from '../../models/Video';
 import { useSession } from 'next-auth/react';
-import { IKImage } from 'imagekitio-next';
+
 
 function ProfilePage() {
    const { data: session } = useSession()
