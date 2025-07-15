@@ -7,7 +7,7 @@ import { useState } from "react";
 import { useNotification } from "./Notification";
 
 
-export default function Header() {
+ function Header() {
   const { data: session } = useSession();
   const { showNotification } = useNotification();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -141,3 +141,5 @@ export default function Header() {
     </header>
   );
 }
+
+export default Header
