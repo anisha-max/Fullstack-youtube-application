@@ -71,13 +71,22 @@ export default function Header() {
               </button>
             </>
           ) : (
+           <>
             <Link
               href="/login"
-              className="btn btn-sm btn-primary"
-              onClick={() => showNotification("Please sign in to continue", "info")}
+              className="btn btn-sm bg-blue-700 text-white rounded-2xl px-3 py-2"
+              onClick={() => showNotification("Please login in to continue", "info")}
             >
               Login
             </Link>
+            <Link
+              href="/register"
+              className="btn btn-sm bg-green-700 text-white rounded-2xl p-2"
+              onClick={() => showNotification("Please sign in to continue", "info")}
+            >
+              Register
+            </Link>
+            </>
           )}
         </div>
 

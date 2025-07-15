@@ -14,7 +14,7 @@ export default function VideoFeed({ videos }: VideoFeedProps) {
 
       {videos.length === 0 && (
         <div className="col-span-full text-center py-12">
-          <p className="text-base-content/70">No videos found</p>
+          <p className="text-base-content/70">Finding videos for you</p>
         </div>
       )}
     </div>
