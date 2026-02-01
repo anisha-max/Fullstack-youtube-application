@@ -23,11 +23,11 @@ import { useNotification } from "./Notification";
 
   return (
     <header className="sticky top-0 z-40  shadow-sm">
-      <nav className="container mx-auto px-4 py-2 flex justify-between secondary-bg items-center">
+      <nav className="container mx-auto px-4 py-2 flex justify-between items-center">
 
         <Link
           href="/"
-          className="flex items-center gap-2 font-bold text-xl  text-blue-100 btn btn-ghost"
+          className="flex items-center gap-2 font-bold text-xl text-[#DC143C]  btn "
           onClick={() => showNotification("Welcome to Video Web", "info")}
         >
           <Home className="w-5 h-5" />
@@ -74,14 +74,14 @@ import { useNotification } from "./Notification";
            <>
             <Link
               href="/login"
-              className="btn btn-sm bg-blue-700 text-white rounded-2xl px-3 py-2"
+              className=" border-2 border-[#DC143C] text-[#DC143C] font-semibold rounded-2xl px-3 py-2"
               onClick={() => showNotification("Please login in to continue", "info")}
             >
               Login
             </Link>
             <Link
               href="/register"
-              className="btn btn-sm bg-green-700 text-white rounded-2xl p-2"
+              className=" bg-[#DC143C]  text-white font-semibold rounded-2xl p-2"
               onClick={() => showNotification("Please sign in to continue", "info")}
             >
               Register
