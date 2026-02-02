@@ -2,10 +2,10 @@
 import VideoFeed from "./components/VideoFeed";
 import { IVideo } from "../models/Video";
 import { apiClient } from "../lib/api-client"
-import { useState , useEffect } from "react";
+import { useState, useEffect } from "react";
 
 export default function Home() {
-    const [videos, setVideos] = useState<IVideo[]>([]);
+  const [videos, setVideos] = useState<IVideo[]>([]);
 
   useEffect(() => {
     const fetchVideos = async () => {
@@ -20,7 +20,7 @@ export default function Home() {
     fetchVideos();
   }, []);
   return (
-     <main className="container mx-auto px-4 py-8">
+    <main className="container mx-auto px-4 pt-26 pb-5">
       <VideoFeed videos={videos} />
     </main>
   );

@@ -16,14 +16,16 @@ export default function VideoComponent({ video }: { video: IVideo }) {
           />
         </div>
         <div className="flex mt-3 space-x-3">
-          <div className="w-10 h-10 rounded-full bg-gray-300" >
-            {/* diffrent user images  */}
-            </div>
+        <div>
+            <div className="w-10 h-10 rounded-full bg-gray-300" >
+ 
+          </div>
+        </div>
           <div>
             <h3 className="text-md  font-semibold ">
               {video.title}
             </h3>
-            <p className="text-sm mt-1 line-clamp-2">
+            <p className="text-sm text-gray-400 mt-1 line-clamp-2">
               {video.description}
             </p>
           </div>

@@ -35,45 +35,53 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center ">
-      <div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md drop-shadow-[0_0_4px_rgba(9,51,60,0.5)]">
-        <h1 className="text-3xl font-bold text-center text-sky-900 mb-6">
+    <div className="relative min-h-screen w-full flex items-center justify-center bg-[url('/bg-image.jpg')] bg-cover bg-center">
+      <div className="absolute inset-0 bg-black/70 z-0"></div>
+      <div className="bg-black/40 p-8 rounded-lg shadow-xl w-full lg:max-w-lg drop-shadow-[0_0_4px_rgba(9,51,60,0.5)]">
+        <h1 className="text-4xl font-bold text-center text-[#DC143C] mb-6">
           Login
         </h1>
 
         {error && <p className="text-red-900 text-sm text-center mb-4">{error}</p>}
 
-        <form onSubmit={handleLogin} className="flex flex-col gap-4 ">
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            required
-            onChange={(e) => setEmail(e.target.value)}
-            className="border border-sky-200 rounded p-2 focus:outline-none focus:ring-2 focus:ring-sky-900 text-black"
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            required
-            onChange={(e) => setPassword(e.target.value)}
-            className="border border-sky-200 rounded p-2 focus:outline-none focus:ring-2 focus:ring-sky-900 text-black"
-          />
+        <form onSubmit={handleLogin} className="flex flex-col gap-8 ">
+          <div className="flex flex-col gap-1">
+            <label className="text-white">
+              Email
+            </label>
+            <input
+              type="email"
+              value={email}
+              required
+              onChange={(e) => setEmail(e.target.value)}
+              className="border-b border-red-100 p-2 bg-black focus:outline-none focus:ring-0 font-medium text-lg text-gray-300"
+            />
+          </div>
+          <div className="flex flex-col gap-1">
+            <label className="text-white">
+              Password
+            </label>
+            <input
+              type="password"
+              value={password}
+              required
+              onChange={(e) => setPassword(e.target.value)}
+              className="border-b border-red-100 bg-black p-2 focus:outline-none focus:ring-0 font-medium text-lg text-gray-300"
+            />
+          </div>
           <button
             type="submit"
             disabled={loading}
-            className={`bg-sky-900 text-white p-2 rounded hover:bg-sky-900 transition duration-200 ${
-              loading && "opacity-50 cursor-not-allowed"
-            }`}
+            className={`bg-[#DC143C] text-white p-2 rounded hover:bg-[#DC143C]/90 text-base font-semibold transition duration-200 ${loading && "opacity-50 cursor-not-allowed"
+              }`}
           >
             {loading ? "Logging in..." : "Login"}
           </button>
         </form>
 
-        <p className="text-sm text-center text-black mt-4">
+        <p className="text-center text-white mt-8">
           Don&apos;t have an account?{" "}
-          <Link href="/register" className="text-sky-900 hover:underline">
+          <Link href="/register" className="text-[#DC143C] font-semibold hover:underline">
             Register
           </Link>
         </p>
