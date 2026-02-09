@@ -1,64 +1,116 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "next/navigation";
+import videojs from "video.js";
+
 import { apiClient } from "../../../lib/api-client";
 import { IVideo } from "../../../models/Video";
-import { IKVideo } from "imagekitio-next";
 import VideoComponent from "../../components/VideoComponent";
+import VideoJS from "../../components/Videojs";
+import { useSession } from "next-auth/react";
+
+const urlEndpoint = process.env.NEXT_PUBLIC_URL_ENDPOINT!;
 
 export default function VideoPage() {
-  const params = useParams();
-  const id = params.id as string;
+  const { id } = useParams<{ id: string }>();
   const [video, setVideo] = useState<IVideo | null>(null);
   const [videos, setVideos] = useState<IVideo[]>([]);
+  const playerRef = useRef(null);
+ const { data: session } = useSession();
+  const userId = session?.user?.id;
+ const addHistory = async () => {
+    if (!userId ) return;
+    await apiClient.addHistory(userId, id);
+  };
 
   useEffect(() => {
-    const fetchVideos = async () => {
-      try {
-        const data = await apiClient.getVideos();
-        setVideos(data);
-      } catch (error) {
-        console.error("Error fetching videos:", error);
-      }
-    };
-
-    fetchVideos();
+    apiClient
+      .getVideos()
+      .then(setVideos)
+      .catch(console.error);
   }, []);
 
+
   useEffect(() => {
-    async function fetchVideo() {
-      try {
-        const data = await apiClient.getVideo(id);
-        setVideo(data);
-        console.log(data)
-      } catch (error) {
-        console.error("Video fetch failed:", error);
-      }
-    }
-    if (id) fetchVideo();
+    if (!id) return;
+
+    apiClient
+      .getVideo(id)
+      .then(setVideo)
+      .catch(console.error);
   }, [id]);
 
   if (!video) return <p>Loading...</p>;
 
+  const videoJsOptions = {
+    autoplay: true,
+    controls: true,
+    responsive: true,
+    width: 860,
+    height: 480,
+    poster: `${urlEndpoint}${video.thumbnailUrl}`,
+    sources: [
+      {
+        src: `${urlEndpoint}${video.videoUrl}/ik-video.mp4/ik-master.m3u8?tr=sr-240_360_480_720_1080`,
+        type: "application/x-mpegURL",
+      },
+    ],
+    tracks: [
+      {
+        kind: "subtitles",
+        src: "/subtitles/english.vtt",
+        srcLang: "en",
+        label: "English",
+        default: true,
+      },
+      {
+        kind: "subtitles",
+        src: "/subtitles/hindi.vtt",
+        srcLang: "hi",
+        label: "Hindi",
+      },
+    ],
+  };
+
+const handlePlayerReady = (player: videojs.Player) => {
+  playerRef.current = player;
+
+  const onPlay = () => {
+    addHistory();
+    player.off("play", onPlay);
+  };
+
+  player.on("play", onPlay);
+
+  player.on("waiting", () => {
+    videojs.log("player waiting");
+  });
+
+  player.on("dispose", () => {
+    videojs.log("player disposed");
+  });
+};
+
+
   return (
-<section className="flex pt-26 px-16 justify-around items-start">
-      <div className="sticky top-10 w-[860px] shrink-0">
-   <IKVideo
-        path={video.videoUrl}
-        controls
-        className=" rounded-3xl object-cover"
-        // poster={video.thumbnailUrl}
-      >
-      </IKVideo>
-        <h1 className="text-xl font-bold mb-2 text-white rounded-3xl ">{video.title}</h1>
+    <section className="flex pt-26 px-16 justify-around items-start">
+      <div className="sticky top-10 shrink-0 w-[860px]">
+        <div className="bg-black rounded-xl overflow-hidden h-[480px]">
+          <VideoJS options={videoJsOptions} onReady={handlePlayerReady} />
+        </div>
+
+        <h1 className="text-xl font-bold mt-3 text-white">
+          {video.title}
+        </h1>
       </div>
+
+
       <div className="flex-1">
-         {videos.map((video) => (
-                 <VideoComponent key={video._id?.toString()} video={video} />
-               ))}
+        {videos.map((v) => (
+          <VideoComponent key={v._id?.toString()} video={v} />
+        ))}
       </div>
-</section>
-   
+    </section>
   );
 }

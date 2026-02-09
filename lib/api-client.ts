@@ -4,7 +4,7 @@ export type VideoFormData = Omit<IVideo, "_id">;
 
 type FetchOptions = {
   method?: "GET" | "POST" | "PUT" | "DELETE";
-  body?:  BodyInit | object | null;
+  body?: BodyInit | object | null;
   headers?: Record<string, string>;
 };
 
@@ -15,7 +15,7 @@ class ApiClient {
   ): Promise<T> {
     const { method = "GET", body, headers = {} } = options;
 
-        const isFormData = body instanceof FormData;
+    const isFormData = body instanceof FormData;
     const isPlainObject =
       typeof body === "object" && body !== null && !isFormData;
 
@@ -27,7 +27,7 @@ class ApiClient {
     const response = await fetch(`/api${endpoint}`, {
       method,
       headers: defaultHeaders,
-      body:isPlainObject ? JSON.stringify(body) : (body as BodyInit | null),
+      body: isPlainObject ? JSON.stringify(body) : (body as BodyInit | null),
     });
 
     if (!response.ok) {
@@ -51,6 +51,24 @@ class ApiClient {
       body: videoData,
     });
   }
+
+
+  async addHistory( userId:string,  videoId:string){
+      return this.fetch<{ message: string }>("/history/add", {
+    method: "POST",
+    body: {
+      userId,
+      videoId,
+    },
+  });
+  }
+
+
+
+  async getHistory(){
+    return this.fetch<IVideo[]>("/history")
+  }
+
 }
 
 export const apiClient = new ApiClient();

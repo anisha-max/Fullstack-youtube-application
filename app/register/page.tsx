@@ -45,19 +45,19 @@ export default function RegisterPage() {
 
       router.push("/login");
     } catch (err: unknown) {
-  if (err instanceof Error) {
-    setError(err.message);
-  } else {
-    setError("Something went wrong");
-  }
-} finally {
-  setLoading(false);
-}
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Something went wrong");
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="relative min-h-screen w-full flex items-center justify-center bg-[url('/bg-image.jpg')] bg-cover bg-center">
-   <div className="absolute inset-0 bg-black/70 z-0"></div>
+      <div className="absolute inset-0 bg-black/70 z-0"></div>
       <div className="bg-black/40 p-8 rounded-lg shadow-xl w-full lg:max-w-lg drop-shadow-[0_0_4px_rgba(9,51,60,0.5)] mt-10">
         <h1 className="text-4xl font-bold text-center text-[#DC143C] mb-6">
           Register
@@ -70,44 +70,44 @@ export default function RegisterPage() {
             <label className="text-white">
               Username
             </label>
-              <input
-            name="username"
-            value={form.username}
-            onChange={handleChange}
-            className="border-b border-red-100 p-2 bg-black focus:outline-none focus:ring-0 font-medium text-lg text-gray-300"
-          />
+            <input
+              name="username"
+              value={form.username}
+              onChange={handleChange}
+              className="border-b border-red-100 p-2 bg-black focus:outline-none focus:ring-0 font-medium text-lg text-gray-300"
+            />
           </div>
-             <div className="flex flex-col gap-1">
+          <div className="flex flex-col gap-1">
             <label className="text-white">
               Email
             </label>
-          <input
-            name="email"
-            type="email"
-            value={form.email}
-            onChange={handleChange}
-            className="border-b border-red-100 p-2 bg-black focus:outline-none focus:ring-0 font-medium text-lg text-gray-300"
-          />
-           </div>
-             <div className="flex flex-col gap-1">
+            <input
+              name="email"
+              type="email"
+              value={form.email}
+              onChange={handleChange}
+              className="border-b border-red-100 p-2 bg-black focus:outline-none focus:ring-0 font-medium text-lg text-gray-300"
+            />
+          </div>
+          <div className="flex flex-col gap-1">
             <label className="text-white">
               Password
             </label>
-          <input
-            name="password"
-            type="password"
-            value={form.password}
-            onChange={handleChange}
-            className="border-b border-red-100 p-2 bg-black focus:outline-none focus:ring-0 font-medium text-lg text-gray-300"
-          />
+            <input
+              name="password"
+              type="password"
+              value={form.password}
+              onChange={handleChange}
+              className="border-b border-red-100 p-2 bg-black focus:outline-none focus:ring-0 font-medium text-lg text-gray-300"
+            />
           </div>
-        <div className="text-white flex gap-2 cursor-pointer">
+          <div className="text-white flex gap-2 cursor-pointer">
             <FileUpload
-            fileType="image"
-            onProgress={(p) => console.log("Progress:", p)}
-            onSuccess={(res) => setUploadedUrl(res.filePath)}
-          />
-        </div>
+              fileType="image"
+              onProgress={(p) => console.log("Progress:", p)}
+              onSuccess={(res) => setUploadedUrl(res.filePath)}
+            />
+          </div>
 
           {uploadedUrl && (
             <div className="mt-4">
