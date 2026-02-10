@@ -1,12 +1,11 @@
 // app/api/history/route.ts
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../../../lib/auth";
 import User from "../../../models/User";
 import { connectToDB } from "../../../lib/mongodb";
-import Video from "../../../models/Video";
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
     await connectToDB()
     const session = await getServerSession(authOptions);
@@ -21,7 +20,7 @@ export async function GET(req: NextRequest) {
     if (!user) return NextResponse.json({ error: "User not found" }, { status: 404 });
 console.log("history :" , user.watchHistory)
     return NextResponse.json(user.watchHistory || []);
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: "Server Error" }, { status: 500 });
   }
 }

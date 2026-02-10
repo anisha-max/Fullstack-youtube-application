@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import FileUpload from "../components/FileUpload";
 import Link from "next/link";
-import { Download } from "lucide-react";
 
 export default function RegisterPage() {
   const router = useRouter();

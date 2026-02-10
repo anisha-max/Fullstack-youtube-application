@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "next/navigation";
 import videojs from "video.js";
-
+import type Player from "video.js/dist/types/player";
 import { apiClient } from "../../../lib/api-client";
 import { IVideo } from "../../../models/Video";
 import VideoComponent from "../../components/VideoComponent";
@@ -16,7 +16,7 @@ export default function VideoPage() {
   const { id } = useParams<{ id: string }>();
   const [video, setVideo] = useState<IVideo | null>(null);
   const [videos, setVideos] = useState<IVideo[]>([]);
-  const playerRef = useRef(null);
+  const playerRef = useRef<Player | null>(null);
  const { data: session } = useSession();
   const userId = session?.user?.id;
  const addHistory = async () => {
@@ -77,7 +77,7 @@ export default function VideoPage() {
     ],
   };
 
-const handlePlayerReady = (player: videojs.Player) => {
+const handlePlayerReady = (player: Player) => {
   playerRef.current = player;
 
   const onPlay = () => {
