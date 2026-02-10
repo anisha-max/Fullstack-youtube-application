@@ -7,7 +7,7 @@ import videojs from "video.js";
 import { apiClient } from "../../../lib/api-client";
 import { IVideo } from "../../../models/Video";
 import VideoComponent from "../../components/VideoComponent";
-import VideoJS from "../../components/Videojs";
+import VideoPlayer from "../../components/VideoPlayer";
 import { useSession } from "next-auth/react";
 
 const urlEndpoint = process.env.NEXT_PUBLIC_URL_ENDPOINT!;
@@ -51,9 +51,13 @@ export default function VideoPage() {
     height: 480,
     poster: `${urlEndpoint}${video.thumbnailUrl}`,
     sources: [
-      {
-        src: `${urlEndpoint}${video.videoUrl}/ik-video.mp4/ik-master.m3u8?tr=sr-240_360_480_720_1080`,
-        type: "application/x-mpegURL",
+      // {
+      //   src: `${urlEndpoint}${video.videoUrl}/ik-video.mp4/ik-master.m3u8?tr=sr-240_360_480_720_1080`,
+      //   type: "application/x-mpegURL",
+      // },
+       {
+        src: `${urlEndpoint}${video.videoUrl}`,
+        type: "video/mp4",
       },
     ],
     tracks: [
@@ -97,7 +101,7 @@ const handlePlayerReady = (player: videojs.Player) => {
     <section className="flex pt-26 px-16 justify-around items-start">
       <div className="sticky top-10 shrink-0 w-[860px]">
         <div className="bg-black rounded-xl overflow-hidden h-[480px]">
-          <VideoJS options={videoJsOptions} onReady={handlePlayerReady} />
+          <VideoPlayer options={videoJsOptions} onReady={handlePlayerReady} />
         </div>
 
         <h1 className="text-xl font-bold mt-3 text-white">

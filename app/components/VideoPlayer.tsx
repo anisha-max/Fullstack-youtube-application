@@ -4,7 +4,7 @@ import videojs from "video.js";
 import "videojs-contrib-quality-levels";
 import "videojs-http-source-selector";
 
-export default function VideoJS({ options, onReady }) {
+export default function VideoPlayer({ options, onReady }) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const playerRef = useRef<any>(null);
 
@@ -22,14 +22,14 @@ export default function VideoJS({ options, onReady }) {
         onReady && onReady(player);
       });
 
-      player.ready(()=>{
-        if(typeof player.httpSourceSelector === "function"){
-            player.httpSourceSelector({
-                default:"auto"
-            })
-        }
-          playerRef.current = player;
-      })
+      // player.ready(()=>{
+      //   if(typeof player.httpSourceSelector === "function"){
+      //       player.httpSourceSelector({
+      //           default:"auto"
+      //       })
+      //   }
+      //     playerRef.current = player;
+      // })
     } else {
       const player = playerRef.current;
 
