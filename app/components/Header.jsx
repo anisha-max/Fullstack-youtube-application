@@ -68,7 +68,7 @@ function Header() {
     <div className="ml-auto hidden md:flex items-center gap-4">
       {session ? (
         <>
-          <div className="flex items-center gap-2">
+          {/* <div className="flex items-center gap-2">
             <img
               src={`https://ik.imagekit.io/anisha/tr:h-40,w-40/${session.user?.image}`}
               className="w-9 h-9 rounded-full border border-[#BAE6FD]"
@@ -77,13 +77,20 @@ function Header() {
             <span className="text-sm text-[#0C4A6E]">
               {session.user?.email?.split("@")[0]}
             </span>
-          </div>
+          </div> */}
+          
 
           <Link
             href="/upload"
             className="border border-[#0C4A6E] text-[#0C4A6E] hover:bg-[#0C4A6E] hover:text-[#E0F2FE] transition rounded-xl px-4 py-2"
           >
             Upload
+          </Link>
+           <Link
+            href="/view-history"
+            className="border border-[#0C4A6E] text-[#0C4A6E] hover:bg-[#0C4A6E] hover:text-[#E0F2FE] transition rounded-xl px-4 py-2"
+          >
+            History
           </Link>
 
           <button
