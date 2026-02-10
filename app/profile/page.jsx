@@ -37,7 +37,7 @@ function ProfilePage() {
                 <h5 className="mb-1 text-xl font-medium text-gray-900 "> {session.user?.email?.split("@")[0]}</h5>
                 <span className="text-sm "> {session?.user?.name}</span>
                 <div className="flex mt-4 md:mt-6">
-                  <Link href="/upload" className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white secondary-bg rounded-lg hover:scale-105 ">Add friend</Link>
+                  <Link href="/upload" className="inline-flex items-center px-4 py-2 text-sm font-medium text-center secondary-bg rounded-lg hover:scale-105 ">Add friend</Link>
                 </div>
               </div>
             </div>

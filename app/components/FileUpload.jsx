@@ -1,12 +1,12 @@
 "use client";
-import  { useState } from "react";
+import  { useRef, useState } from "react";
 import { IKUpload } from "imagekitio-next";
 import { Loader2 } from "lucide-react";
 
 export default function FileUpload({ onSuccess, onProgress, fileType }) {
   const [uploading, setUploading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-
+  const [error, setError] = useState(null)
+  const uploadRef = useRef(null);
   const onError = (err) => {
     console.log("Error", err);
     setError(err.message)
@@ -69,8 +69,16 @@ export default function FileUpload({ onSuccess, onProgress, fileType }) {
         onUploadProgress={handleProgress}
         onUploadStart={handleStartUpload}
         folder={fileType === "video" ? "/videos" : "/images"}
-        className="border border-red-100 p-2 "
+        className="hidden"
+        ref={uploadRef} 
       />
+       <button
+        type="button"
+        onClick={() => uploadRef.current?.click()}
+        className="w-full border border-sky-200 px-3 py-2 rounded text-sm text-[#0C4A6E] bg-white hover:bg-gray-50"
+      >
+        {fileType === "video" ? "Choose Video" : "Choose Image"}
+      </button>
       {
         uploading && (
           <div className=" flex text-blue-500 text-sm items-center gap-2">

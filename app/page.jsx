@@ -1,11 +1,13 @@
 "use client"
 import VideoFeed from "./components/VideoFeed";
 import { apiClient } from "../lib/api-client"
-import { useState, useEffect } from "react";
+import { useState, useEffect, useDeferredValue } from "react";
+import { useSearch } from "./components/SearchContext";
 
 export default function Home() {
   const [videos, setVideos] = useState([]);
-
+const { query } = useSearch();
+ const deferredQuery = useDeferredValue(query);
   useEffect(() => {
     const fetchVideos = async () => {
       try {
@@ -18,9 +20,13 @@ export default function Home() {
 
     fetchVideos();
   }, []);
+
+  const filteredVideos = videos.filter((video) =>
+    video.title.toLowerCase().includes(deferredQuery.toLowerCase())
+  );
   return (
-    <main className="container mx-auto px-4 pt-26 pb-5">
-      <VideoFeed videos={videos} />
+    <main className="container mx-auto px-4 py-5">
+    <VideoFeed videos={filteredVideos} />
     </main>
   );
 }

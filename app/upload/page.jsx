@@ -20,9 +20,8 @@ export default function VideoUploadPage() {
     return <p>Loading...</p>;
   }
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 ">
       <div className="max-w-2xl mx-auto">
-        <h1 className="text-3xl font-bold mb-8">Upload Video</h1>
         <VideoUploadForm />
       </div>
     </div>

@@ -102,7 +102,7 @@ const handlePlayerReady = (player) => {
           <VideoPlayer options={videoJsOptions} onReady={handlePlayerReady} />
         </div>
 
-        <h1 className="text-xl font-bold mt-3 text-white">
+        <h1 className="text-xl font-bold mt-3">
           {video.title}
         </h1>
       </div>

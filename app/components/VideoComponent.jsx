@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function VideoComponent({ video }) {
   console.log(video)
   return (
-    <div className="w-full max-w-[360px] mx-auto text-white ">
+    <div className="w-full max-w-[360px] mx-auto ">
       <Link href={`/videos/${video._id}`} className="block hover:scale-102  p-1 rounded-2xl transition-all duration-500 ease-out">
         <div className="relative w-full rounded-xl overflow-hidden aspect-video ">
           <IKImage
@@ -24,7 +24,7 @@ export default function VideoComponent({ video }) {
             <h3 className="text-md  font-semibold ">
               {video.title}
             </h3>
-            <p className="text-sm text-gray-400 mt-1 line-clamp-2">
+            <p className="text-sm mt-1 line-clamp-2">
               {video.description}
             </p>
           </div>

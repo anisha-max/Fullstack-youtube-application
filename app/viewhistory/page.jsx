@@ -26,7 +26,7 @@ export default function History() {
   if (loading) return <div>Loading history...</div>;
 
   return (
-    <main className="container mx-auto px-4 pt-26 pb-5 text-white">
+    <main className="container mx-auto px-4 pt-26 pb-5">
       <h1 className="text-2xl font-bold mb-4">Your History</h1>
       {videos.length > 0 ? (
         <VideoFeed videos={videos} />

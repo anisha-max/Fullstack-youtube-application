@@ -5,13 +5,14 @@ import { useSession, signOut } from "next-auth/react";
 import { Home, Menu, Search, SlidersHorizontal, X } from "lucide-react";
 import { useState } from "react";
 import { useNotification } from "./Notification";
+import { useSearch } from "./SearchContext";
 
 
 function Header() {
   const { data: session } = useSession();
   const { showNotification } = useNotification();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [query, setQuery] = useState("");
+   const { query, setQuery } = useSearch();
   const handleSignOut = async () => {
     try {
       await signOut();
@@ -23,150 +24,126 @@ function Header() {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    console.log("Searching for:", query);
   };
   return (
-    <header className="fixed w-full shadow-sm z-50 bg-black">
-      <nav className=" px-4 py-5 flex items-center relative">
+ <header className="w-full sticky top-0 z-50 bg-white/80 backdrop-blur border-b border-[#BAE6FD]">
+  <nav className="px-4 py-4 flex items-center gap-4 relative">
 
-        <Link
-          href="/"
-          className="flex items-center gap-2 font-bold text-xl text-[#DC143C] "
-          onClick={() => showNotification("Welcome to Video Web", "info")}
-        >
-          <Home className="w-5 h-5" />
-          Video Web
-        </Link>
+    {/* Logo */}
+    <Link
+      href="/"
+      className="flex items-center gap-2 font-bold text-xl text-[#0C4A6E]"
+      onClick={() => showNotification("Welcome to Video Web", "info")}
+    >
+      <Home className="w-5 h-5" />
+      Video Web
+    </Link>
 
-        <div className="absolute left-1/2 -translate-x-1/2 w-full max-w-3xl px-4 ">
-          <form
-            onSubmit={handleSearch}
-            className="flex items-center w-full max-w-4xl bg-[#1a1a1a] rounded-full border border-gray-800 pl-4 focus-within:ring-1 focus-within:ring-gray-600 transition-all"
-          >
-            <SlidersHorizontal className="text-gray-400 w-5 h-5 cursor-pointer hover:text-white transition-colors" />
+    {/* Search */}
+    <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 w-full max-w-xl px-4">
+      <form
+        onSubmit={handleSearch}
+        className="flex items-center w-full rounded-full border border-[#BAE6FD] pl-4 focus-within:ring-2 focus-within:ring-[#075985] transition"
+      >
+        <SlidersHorizontal className="w-5 h-5 text-[#0C4A6E]" />
 
-            <input
-              type="text"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search here..."
-              className="flex-grow bg-transparent border-none outline-none px-4 text-white placeholder-gray-500 text-base"
-            />
-
-            <button
-              type="submit"
-              className="bg-[#cc1111] hover:bg-[#ff0000] text-white p-3 px-8 rounded-full transition-colors flex items-center justify-center"
-            >
-              <Search className="w-6 h-6" />
-            </button>
-          </form>
-        </div>
-
-        <div className="ml-auto hidden md:flex items-center gap-4">
-          {session ? (
-            <>
-              <div className="flex items-center gap-2">
-                <div className="w-10 h-10 rounded-full overflow-hidden border border-red-200 shadow shrink-0">
-                  <img
-                    src={`https://ik.imagekit.io/anisha/tr:h-40,w-40/${session.user?.image}`}
-                    alt="user"
-                    className="w-10 h-10 rounded-full object-cover border border-white shadow"
-                  />
-                  {/* <IKImage
-                    src={session?.user?.image || ""}
-                    transformation={[{ height: "10", width: "10" }]}
-                    alt="user"
-                    className="w-10 h-10 rounded-full object-cover border border-white shadow"
-                  /> */}
-                </div>
-                <span className="text-blue-100 text-sm hidden lg:block">
-                  {session.user?.email?.split("@")[0]}
-                </span>
-              </div>
-
-              <Link
-                href="/upload"
-                className="border-2 border-[#DC143C] text-[#DC143C] font-semibold rounded-2xl px-3 py-2"
-                onClick={() => showNotification("Welcome to Admin Dashboard", "info")}
-              >
-                Upload
-              </Link>
-              <button
-                onClick={handleSignOut}
-                className=" bg-[#DC143C]  text-white font-semibold rounded-2xl p-2"
-              >
-                Sign Out
-              </button>
-            </>
-          ) : (
-            <>
-              <Link
-                href="/login"
-                className=" border-2 border-[#DC143C] text-[#DC143C] font-semibold rounded-2xl px-3 py-2"
-                onClick={() => showNotification("Please login in to continue", "info")}
-              >
-                Login
-              </Link>
-              <Link
-                href="/register"
-                className=" bg-[#DC143C]  text-white font-semibold rounded-2xl p-2"
-                onClick={() => showNotification("Please sign in to continue", "info")}
-              >
-                Register
-              </Link>
-            </>
-          )}
-        </div>
-
+        <input
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Search videos..."
+          className="flex-grow bg-transparent outline-none px-4 text-sm placeholder-gray-400"
+        />
 
         <button
-          className="md:hidden btn btn-ghost btn-circle"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          type="submit"
+          className="bg-[#0C4A6E] hover:bg-[#075985] text-[#E0F2FE] p-3 px-6 rounded-full transition"
         >
-          {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          <Search className="w-5 h-5" />
         </button>
-      </nav>
+      </form>
+    </div>
 
-      {mobileMenuOpen && (
-        <div className="md:hidden bg-base-200 px-10 py-4 space-y-3 shadow-inner">
-          {session ? (
-            <>
-              <div className="text-sm opacity-70">{session.user?.email?.split("@")[0]}</div>
-              <Link
-                href="/upload"
-                className="block btn btn-sm btn-outline w-full text-left"
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  showNotification("Welcome to Admin Dashboard", "info");
-                }}
-              >
-                Upload
-              </Link>
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  handleSignOut();
-                }}
-                className="btn btn-sm btn-error text-white w-full text-left"
-              >
-                Sign Out
-              </button>
-            </>
-          ) : (
-            <Link
-              href="/login"
-              className="btn btn-sm btn-primary w-full text-left"
-              onClick={() => {
-                setMobileMenuOpen(false);
-                showNotification("Please sign in to continue", "info");
-              }}
-            >
-              Login
-            </Link>
-          )}
-        </div>
+    {/* Right section */}
+    <div className="ml-auto hidden md:flex items-center gap-4">
+      {session ? (
+        <>
+          <div className="flex items-center gap-2">
+            <img
+              src={`https://ik.imagekit.io/anisha/tr:h-40,w-40/${session.user?.image}`}
+              className="w-9 h-9 rounded-full border border-[#BAE6FD]"
+              alt="user"
+            />
+            <span className="text-sm text-[#0C4A6E]">
+              {session.user?.email?.split("@")[0]}
+            </span>
+          </div>
+
+          <Link
+            href="/upload"
+            className="border border-[#0C4A6E] text-[#0C4A6E] hover:bg-[#0C4A6E] hover:text-[#E0F2FE] transition rounded-xl px-4 py-2"
+          >
+            Upload
+          </Link>
+
+          <button
+            onClick={handleSignOut}
+            className="bg-[#0C4A6E] hover:bg-[#075985] text-[#E0F2FE] rounded-xl px-4 py-2 transition"
+          >
+            Sign Out
+          </button>
+        </>
+      ) : (
+        <>
+          <Link
+            href="/login"
+            className="border border-[#0C4A6E] text-[#0C4A6E] hover:bg-[#0C4A6E] hover:text-[#E0F2FE] transition rounded-xl px-4 py-2"
+          >
+            Login
+          </Link>
+          <Link
+            href="/register"
+            className="bg-[#0C4A6E] hover:bg-[#075985] text-[#E0F2FE] rounded-xl px-4 py-2 transition"
+          >
+            Register
+          </Link>
+        </>
       )}
-    </header>
+    </div>
+
+    {/* Mobile menu button */}
+    <button
+      className="md:hidden ml-auto text-[#0C4A6E]"
+      onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+    >
+      {mobileMenuOpen ? <X /> : <Menu />}
+    </button>
+  </nav>
+
+  {/* Mobile menu */}
+  {mobileMenuOpen && (
+    <div className="md:hidden bg-white border-t border-[#BAE6FD] px-6 py-4 space-y-3">
+      {session ? (
+        <>
+          <p className="text-sm text-[#0C4A6E]">
+            {session.user?.email?.split("@")[0]}
+          </p>
+          <Link href="/upload" className="block text-[#0C4A6E]">
+            Upload
+          </Link>
+          <button onClick={handleSignOut} className="text-red-500">
+            Sign Out
+          </button>
+        </>
+      ) : (
+        <Link href="/login" className="text-[#0C4A6E]">
+          Login
+        </Link>
+      )}
+    </div>
+  )}
+</header>
+
   );
 }
 

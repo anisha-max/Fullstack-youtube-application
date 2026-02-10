@@ -58,7 +58,7 @@ export default function RegisterPage() {
     <div className="relative min-h-screen w-full flex items-center justify-center bg-[url('/bg-image.jpg')] bg-cover bg-center">
       <div className="absolute inset-0 bg-black/70 z-0"></div>
       <div className="bg-black/40 p-8 rounded-lg shadow-xl w-full lg:max-w-lg drop-shadow-[0_0_4px_rgba(9,51,60,0.5)] mt-10">
-        <h1 className="text-4xl font-bold text-center text-[#DC143C] mb-6">
+        <h1 className="text-4xl font-bold text-center text-[#0C4A6E]mb-6">
           Register
         </h1>
 
@@ -110,21 +110,22 @@ export default function RegisterPage() {
 
           {uploadedUrl && (
             <div className="mt-4">
-              <p className="text-sm text-white">Uploaded File:</p>
+              <p className="text-sm">Uploaded File:</p>
               <img src={uploadedUrl} alt="Preview" className="w-64 rounded shadow" />
             </div>
           )}
           <button
             type="submit"
             disabled={loading}
-            className="bg-[#DC143C] text-white p-2 rounded hover:bg-[#DC143C]/90 text-base font-semibold transition duration-200"
+            className="bg-[#0C4A6E
+]p-2 rounded hover:bg-[#DC143C]/90 text-base font-semibold transition duration-200"
           >
             {loading ? "Registering..." : "Register"}
           </button>
         </form>
-        <p className="text-center text-white mt-8">
+        <p className="text-center mt-8">
           Already have an account?{" "}
-          <Link href="/login" className="text-[#DC143C] font-semibold hover:underline">
+          <Link href="/login" className="[#0C4A6E]font-semibold hover:underline">
             Login
           </Link>
         </p>

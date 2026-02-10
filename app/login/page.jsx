@@ -36,9 +36,9 @@ export default function LoginPage() {
 
   return (
     <div className="relative min-h-screen w-full flex items-center justify-center bg-[url('/bg-image.jpg')] bg-cover bg-center">
-      <div className="absolute inset-0 bg-black/70 z-0"></div>
-      <div className="bg-black/40 p-8 rounded-lg shadow-xl w-full lg:max-w-lg drop-shadow-[0_0_4px_rgba(9,51,60,0.5)]">
-        <h1 className="text-4xl font-bold text-center text-[#DC143C] mb-6">
+      <div className="absolute inset-0 bg-white/30 z-0"></div>
+      <div className="bg-white/70 p-8 rounded-lg shadow-xl w-full lg:max-w-lg drop-shadow-[0_0_4px_rgba(9,51,60,0.5)]">
+        <h1 className="text-4xl font-bold text-center text-[#0C4A6E]mb-6">
           Login
         </h1>
 
@@ -46,7 +46,7 @@ export default function LoginPage() {
 
         <form onSubmit={handleLogin} className="flex flex-col gap-8 ">
           <div className="flex flex-col gap-1">
-            <label className="text-white">
+            <label className="">
               Email
             </label>
             <input
@@ -54,11 +54,11 @@ export default function LoginPage() {
               value={email}
               required
               onChange={(e) => setEmail(e.target.value)}
-              className="border-b border-red-100 p-2 bg-black focus:outline-none focus:ring-0 font-medium text-lg text-gray-300"
+              className="border-b border-sky-300 p-2  focus:outline-none focus:ring-0 font-medium text-lg "
             />
           </div>
           <div className="flex flex-col gap-1">
-            <label className="text-white">
+            <label className="">
               Password
             </label>
             <input
@@ -66,22 +66,23 @@ export default function LoginPage() {
               value={password}
               required
               onChange={(e) => setPassword(e.target.value)}
-              className="border-b border-red-100 bg-black p-2 focus:outline-none focus:ring-0 font-medium text-lg text-gray-300"
+              className="border-b border-sky-300  p-2 focus:outline-none focus:ring-0 font-medium text-lg "
             />
           </div>
           <button
             type="submit"
             disabled={loading}
-            className={`bg-[#DC143C] text-white p-2 rounded hover:bg-[#DC143C]/90 text-base font-semibold transition duration-200 ${loading && "opacity-50 cursor-not-allowed"
+            className={`bg-[#0C4A6E
+]p-2 rounded hover:bg-[#DC143C]/90 text-base font-semibold transition duration-200 ${loading && "opacity-50 cursor-not-allowed"
               }`}
           >
             {loading ? "Logging in..." : "Login"}
           </button>
         </form>
 
-        <p className="text-center text-white mt-8">
+        <p className="text-center mt-8">
           Don&apos;t have an account?{" "}
-          <Link href="/register" className="text-[#DC143C] font-semibold hover:underline">
+          <Link href="/register" className="[#0C4A6E]font-semibold hover:underline">
             Register
           </Link>
         </p>
