@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../../../lib/auth";
 import { connectToDB } from "../../../lib/mongodb";
-import Video, { IVideo } from "../../../models/Video";
+import Video from "../../../models/Video";
 
 export async function GET() {
   try {
@@ -23,7 +23,7 @@ export async function GET() {
   }
 }
 
-export async function POST(request: NextRequest) {
+export async function POST(request) {
   try {
     const session = await getServerSession(authOptions);
 
@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
     }
 
     await connectToDB();
-    const body: IVideo = await request.json();
+    const body = await request.json();
 
     // Validate required fields
     if (

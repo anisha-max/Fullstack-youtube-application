@@ -21,7 +21,7 @@ function Header() {
     }
   };
 
-  const handleSearch = (e:React.FormEvent<HTMLFormElement>) => {
+  const handleSearch = (e) => {
     e.preventDefault();
     console.log("Searching for:", query);
   };

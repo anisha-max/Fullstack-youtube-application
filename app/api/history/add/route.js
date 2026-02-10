@@ -1,9 +1,9 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { connectToDB } from "../../../../lib/mongodb";
 import User from "../../../../models/User";
 
 
-export async function POST(req: NextRequest) {
+export async function POST(req) {
   await connectToDB()
 
   const { userId, videoId } = await req.json();

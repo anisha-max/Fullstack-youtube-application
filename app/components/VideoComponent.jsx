@@ -1,8 +1,7 @@
 import { IKImage } from "imagekitio-next";
 import Link from "next/link";
-import { IVideo } from "../../models/Video";
 
-export default function VideoComponent({ video }: { video: IVideo }) {
+export default function VideoComponent({ video }) {
   console.log(video)
   return (
     <div className="w-full max-w-[360px] mx-auto text-white ">

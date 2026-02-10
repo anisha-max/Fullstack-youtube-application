@@ -1,17 +1,7 @@
 import mongoose  , {Types, model, models, Schema } from "mongoose";
 import bcrypt from "bcryptjs";
 
-export interface Iuser {
-    username: string;
-    email: string;
-    password: string;
-    coverImage: string | null;
-    watchHistory: Types.ObjectId[];
-    createdAt?: Date;
-    updatedAt?: Date;
-}
-
-const userSchema = new Schema<Iuser>({
+const userSchema = new Schema({
     username: { type: String, required: true, unique: true, trim: true, index: true },
     email: { type: String, required: true, unique: true, trim: true },
     password: { type: String, required: [true, "password required"] },
@@ -29,5 +19,5 @@ userSchema.pre("save" ,async function(next){
 } )
 
 
-const User = models?.User || model<Iuser>("User" , userSchema)
+const User = models?.User || model("User" , userSchema)
 export default User;

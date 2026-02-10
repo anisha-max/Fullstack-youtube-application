@@ -1,9 +1,9 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import User from "../../../../models/User";
 import { connectToDB } from "../../../../lib/mongodb";
 
 
-export async function POST(request: NextRequest) {
+export async function POST(request) {
     try {
         const { username, email, password, coverImage } = await request.json()
 
@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
             { status: 201 }
         )
 
-    }  catch (error: unknown) {
+    }  catch (error) {
     let errorMessage = "Unknown error";
 
     if (error instanceof Error) {

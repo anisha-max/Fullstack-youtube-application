@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
+import {  NextResponse } from "next/server";
 import { connectToDB } from "../../../../lib/mongodb";
 import Video from "../../../../models/Video";
 
-export async function GET(req: NextRequest) {
+export async function GET(req) {
   await connectToDB();
 
   const id = req.nextUrl.pathname.split("/").pop(); 

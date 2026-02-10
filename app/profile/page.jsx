@@ -7,7 +7,7 @@ import { useSession } from 'next-auth/react';
 
 
 function ProfilePage() {
-   const { data: session } = useSession()
+   const { data } = useSession()
   //  const [videos, setVideos] = useState<IVideo[]>([]);
   // useEffect(() => {
   //   const fetchVideos = async () => {

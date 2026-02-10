@@ -5,7 +5,7 @@ import { apiClient } from "../../lib/api-client";
 import VideoFeed from "../components/VideoFeed";
 
 export default function History() {
-  const [videos, setVideos] = useState<IVideo[]>([]);
+  const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

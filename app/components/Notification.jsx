@@ -2,24 +2,15 @@
 
 import { createContext, useContext, useState, ReactNode } from "react";
 
-type NotificationType = "success" | "error" | "warning" | "info";
 
-interface NotificationContextType {
-  showNotification: (message: string, type: NotificationType) => void;
-}
-
-const NotificationContext = createContext<NotificationContextType | undefined>(
+const NotificationContext = createContext(
   undefined
 );
 
-export function NotificationProvider({ children }: { children: ReactNode }) {
-  const [notification, setNotification] = useState<{
-    message: string;
-    type: NotificationType;
-    id: number;
-  } | null>(null);
+export function NotificationProvider({ children }) {
+  const [notification, setNotification] = useState(null)
 
-  const showNotification = (message: string, type: NotificationType) => {
+  const showNotification = (message) => {
     const id = Date.now();
     setNotification({ message, type, id });
     setTimeout(() => {
@@ -41,7 +32,7 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
   );
 }
 
-function getAlertClass(type: NotificationType): string {
+function getAlertClass(type) {
   switch (type) {
     case "success":
       return "alert-success";

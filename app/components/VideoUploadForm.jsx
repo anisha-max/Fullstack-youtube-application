@@ -2,18 +2,11 @@
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { IKUploadResponse } from "imagekitio-next/dist/types/components/IKUpload/props";
 import { Loader2 } from "lucide-react";
 import { useNotification } from "./Notification";
 import { apiClient } from "../../lib/api-client";
 import FileUpload from "./FileUpload";
 
-interface VideoFormData {
-  title: string;
-  description: string;
-  videoUrl: string;
-  thumbnailUrl: string;
-}
 
 export default function VideoUploadForm() {
   const [loading, setLoading] = useState(false);
@@ -35,23 +28,23 @@ export default function VideoUploadForm() {
     },
   });
 
-  const handleUploadSuccess = (response: IKUploadResponse) => {
+  const handleUploadSuccess = (response) => {
     setValue("videoUrl", response.filePath);
     showNotification("Video uploaded successfully!", "success");
   };
-  const handleThumbnailUploadSuccess = (response: IKUploadResponse) => {
+  const handleThumbnailUploadSuccess = (response) => {
     setValue("thumbnailUrl", response.filePath);
     showNotification("Thumbnail uploaded successfully!", "success");
   };
 
-  const handleUploadProgress = (progress: number) => {
+  const handleUploadProgress = (progress) => {
     setUploadProgress(progress);
   };
-   const handleThumbnailUploadProgress = (progress: number) => {
+   const handleThumbnailUploadProgress = (progress) => {
     setThumbnailUploadProgress(progress);
   };
 
-  const onSubmit = async (data: VideoFormData) => {
+  const onSubmit = async (data) => {
     if (!data.videoUrl) {
       showNotification("Please upload a video first", "error");
       return;

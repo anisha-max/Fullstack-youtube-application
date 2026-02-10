@@ -1,33 +1,26 @@
 "use client";
-import React, { useState } from "react";
+import  { useState } from "react";
 import { IKUpload } from "imagekitio-next";
-import { IKUploadResponse } from "imagekitio-next/dist/types/components/IKUpload/props";
 import { Loader2 } from "lucide-react";
 
-interface FileUploadProps {
-  onSuccess: (res: IKUploadResponse) => void
-  onProgress: (progress: number) => void
-  fileType?: "video"  | "image"
-}
-
-export default function FileUpload({ onSuccess, onProgress, fileType }: FileUploadProps) {
+export default function FileUpload({ onSuccess, onProgress, fileType }) {
   const [uploading, setUploading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const onError = (err: { message: string }) => {
+  const onError = (err) => {
     console.log("Error", err);
     setError(err.message)
     setUploading(false)
   };
 
-  const handleSuccess = (res: IKUploadResponse) => {
+  const handleSuccess = (res) => {
     console.log("Success", res);
     setUploading(false)
     setError(null)
     onSuccess(res)
   };
 
-  const handleProgress = (evt: ProgressEvent) => {
+  const handleProgress = (evt) => {
     if (evt.lengthComputable && onProgress) {
       const percentComplete = (evt.loaded / evt.total) * 100
       onProgress(Math.round(percentComplete))
@@ -40,7 +33,7 @@ export default function FileUpload({ onSuccess, onProgress, fileType }: FileUplo
 
   };
 
-  const validateFile = (file: File) => {
+  const validateFile = (file) => {
     if (fileType === "video") {
       if (!file.type.startsWith("video/")) {
         setError("Please upload a video file");

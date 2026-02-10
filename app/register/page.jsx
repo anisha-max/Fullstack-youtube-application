@@ -19,11 +19,11 @@ export default function RegisterPage() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError("");
@@ -43,7 +43,7 @@ export default function RegisterPage() {
       }
 
       router.push("/login");
-    } catch (err: unknown) {
+    } catch (err) {
       if (err instanceof Error) {
         setError(err.message);
       } else {
