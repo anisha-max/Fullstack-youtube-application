@@ -1,11 +1,21 @@
 "use client";
 import { useEffect, useRef } from "react";
 import videojs from "video.js";
+import type Player from "video.js/dist/types/player";
 import "videojs-contrib-quality-levels";
 import "videojs-http-source-selector";
 
-export default function VideoPlayer({ options, onReady }) {
-  const videoRef = useRef<HTMLVideoElement | null>(null);
+
+type VideoJsOptions = Parameters<typeof videojs>[1];
+
+interface VideoPlayerProps {
+  options: VideoJsOptions;
+  onReady?: (player: Player) => void;
+}
+
+
+export default function VideoPlayer({ options, onReady }: VideoPlayerProps) {
+  const videoRef = useRef<HTMLDivElement  | null>(null);
   const playerRef = useRef<any>(null);
 
   useEffect(() => {
