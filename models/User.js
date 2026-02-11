@@ -1,4 +1,4 @@
-import mongoose  , {Types, model, models, Schema } from "mongoose";
+import { model, models, Schema } from "mongoose";
 import bcrypt from "bcryptjs";
 
 const userSchema = new Schema({
@@ -6,7 +6,7 @@ const userSchema = new Schema({
     email: { type: String, required: true, unique: true, trim: true },
     password: { type: String, required: [true, "password required"] },
     coverImage: { type: String, required: true },
-    watchHistory: [{ type: mongoose.Schema.Types.ObjectId, ref: "Video" }],
+  watchHistory: [{ type: Schema.Types.ObjectId, ref: "Video" }],
    
 
 }, { timestamps: true })

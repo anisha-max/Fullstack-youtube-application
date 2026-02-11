@@ -2,7 +2,8 @@
 import { ImageKitProvider } from "imagekitio-next";
 import { SessionProvider } from "next-auth/react";
 import { NotificationProvider } from "./Notification";
-import { SearchProvider } from "./SearchContext";
+import { SidebarProvider } from "./context/SidebarContext";
+import { SearchProvider } from "./context/SearchContext";
 
 
 const urlEndpoint = process.env.NEXT_PUBLIC_URL_ENDPOINT;
@@ -23,7 +24,8 @@ export default function Providers({ children }) {
   return (
     <SessionProvider refetchInterval={5 * 60}>
       <NotificationProvider>
-        <SearchProvider>
+          <SidebarProvider>
+                <SearchProvider>
           <ImageKitProvider
             publicKey={publicKey}
             urlEndpoint={urlEndpoint}
@@ -31,7 +33,8 @@ export default function Providers({ children }) {
           >
             {children}
           </ImageKitProvider>
-        </SearchProvider>
+           </SearchProvider>
+          </SidebarProvider>
       </NotificationProvider>
     </SessionProvider>
   );

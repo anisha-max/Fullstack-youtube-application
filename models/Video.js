@@ -1,14 +1,19 @@
-import  { Schema, model, models } from "mongoose";
+import { Schema, model, models } from "mongoose";
 
 export const VIDEO_DIMENSIONS = {
   width: 940,
   height: 520,
-} 
+}
 
 
 
 const videoSchema = new Schema(
   {
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true
+    },
     title: { type: String, required: true },
     description: { type: String, required: true },
     videoUrl: { type: String, required: true },

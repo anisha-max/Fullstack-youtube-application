@@ -2,7 +2,8 @@
 import VideoFeed from "./components/VideoFeed";
 import { apiClient } from "../lib/api-client"
 import { useState, useEffect, useDeferredValue } from "react";
-import { useSearch } from "./components/SearchContext";
+import { useSearch } from "./components/context/SearchContext";
+
 
 export default function Home() {
   const [videos, setVideos] = useState([]);

@@ -12,7 +12,7 @@ export function NotificationProvider({ children }) {
 
   const showNotification = (message) => {
     const id = Date.now();
-    setNotification({ message, type, id });
+    setNotification({ message, id });
     setTimeout(() => {
       setNotification((current) => (current?.id === id ? null : current));
     }, 3000);

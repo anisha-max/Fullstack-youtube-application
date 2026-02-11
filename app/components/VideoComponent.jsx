@@ -1,5 +1,7 @@
 import { IKImage } from "imagekitio-next";
+import Image from "next/image";
 import Link from "next/link";
+const urlEndpoint = process.env.NEXT_PUBLIC_URL_ENDPOINT;
 
 export default function VideoComponent({ video }) {
   console.log(video)
@@ -17,7 +19,7 @@ export default function VideoComponent({ video }) {
         <div className="flex mt-3 space-x-3">
         <div>
             <div className="w-10 h-10 rounded-full bg-gray-300" >
- 
+ <Image src={video.user?.coverImage ? `${urlEndpoint}${video.user.coverImage}` : "/thumbnail.jpeg"} width={10} height={10}  alt="user image" className="w-10 h-10 rounded-full"/>
           </div>
         </div>
           <div>

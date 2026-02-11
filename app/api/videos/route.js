@@ -7,7 +7,7 @@ import Video from "../../../models/Video";
 export async function GET() {
   try {
     await connectToDB();
-    const videos = await Video.find({}).sort({ createdAt: -1 }).lean();
+    const videos = await Video.find({}).sort({ createdAt: -1 }).populate("user", "username coverImage").lean();
 
     if (!videos || videos.length === 0) {
       return NextResponse.json([], { status: 200 });
@@ -27,7 +27,7 @@ export async function POST(request) {
   try {
     const session = await getServerSession(authOptions);
 
-    if (!session) {
+    if (!session || !session.user?.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
@@ -50,6 +50,7 @@ export async function POST(request) {
     // Create new video with default values
     const videoData = {
       ...body,
+      user: session.user.id,
       controls: body.controls ?? true,
       transformation: {
         height: 1920,
