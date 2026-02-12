@@ -24,6 +24,16 @@ const videoSchema = new Schema(
       width: { type: Number, default: VIDEO_DIMENSIONS.width },
       quality: { type: Number, min: 1, max: 100 },
     },
+    comments: [{
+      text: {
+        type: String
+      },
+      user: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true
+    },
+    }, { timestamps: true }]
   },
   { timestamps: true }
 );

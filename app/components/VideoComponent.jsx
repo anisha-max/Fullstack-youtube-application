@@ -4,7 +4,6 @@ import Link from "next/link";
 const urlEndpoint = process.env.NEXT_PUBLIC_URL_ENDPOINT;
 
 export default function VideoComponent({ video }) {
-  console.log(video)
   return (
     <div className="w-full max-w-[360px] mx-auto ">
       <Link href={`/videos/${video._id}`} className="block hover:scale-102  p-1 rounded-2xl transition-all duration-500 ease-out">
