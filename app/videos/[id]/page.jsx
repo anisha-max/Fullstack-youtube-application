@@ -4,7 +4,6 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useParams } from "next/navigation";
 import videojs from "video.js";
 import { apiClient } from "../../../lib/api-client";
-import VideoComponent from "../../components/VideoComponent";
 import VideoPlayer from "../../components/VideoPlayer";
 import { useSession } from "next-auth/react";
 
@@ -19,15 +18,14 @@ export default function VideoPage() {
   const { data: session } = useSession();
   const userId = session?.user?.id;
 
-    const videoJsOptions = useMemo(() => {
+  const videoJsOptions = useMemo(() => {
     if (!video) return null;
 
     return {
       autoplay: true,
       controls: true,
       responsive: true,
-      width: 860,
-      height: 480,
+      fluid: true,
       poster: `${urlEndpoint}${video.thumbnailUrl}`,
       sources: [
         {
@@ -35,25 +33,25 @@ export default function VideoPage() {
           type: "video/mp4",
         },
       ],
-        tracks: [
-      {
-        kind: "subtitles",
-        src: "/subtitles/english.vtt",
-        srcLang: "en",
-        label: "English",
-        default: true,
-      },
-      {
-        kind: "subtitles",
-        src: "/subtitles/hindi.vtt",
-        srcLang: "hi",
-        label: "Hindi",
-      },
-    ],
+      tracks: [
+        {
+          kind: "subtitles",
+          src: "/subtitles/english.vtt",
+          srcLang: "en",
+          label: "English",
+          default: true,
+        },
+        {
+          kind: "subtitles",
+          src: "/subtitles/hindi.vtt",
+          srcLang: "hi",
+          label: "Hindi",
+        },
+      ],
     };
   }, [video?.videoUrl, video?.thumbnailUrl]);
 
-  
+
   const addHistory = async () => {
     if (!userId) return;
     await apiClient.addHistory(userId, id);
@@ -77,45 +75,6 @@ export default function VideoPage() {
   }, [id]);
 
   if (!video) return <p>Loading...</p>;
-
-  // const videoJsOptions = {
-  //   autoplay: true,
-  //   controls: true,
-  //   responsive: true,
-  //   width: 860,
-  //   height: 480,
-  //   poster: `${urlEndpoint}${video.thumbnailUrl}`,
-  //   sources: [
-  //     // {
-  //     //   src: `${urlEndpoint}${video.videoUrl}/ik-video.mp4/ik-master.m3u8?tr=sr-240_360_480_720_1080`,
-  //     //   type: "application/x-mpegURL",
-  //     // },
-  //     {
-  //       src: `${urlEndpoint}${video.videoUrl}`,
-  //       type: "video/mp4",
-  //     },
-  //   ],
-  //   tracks: [
-  //     {
-  //       kind: "subtitles",
-  //       src: "/subtitles/english.vtt",
-  //       srcLang: "en",
-  //       label: "English",
-  //       default: true,
-  //     },
-  //     {
-  //       kind: "subtitles",
-  //       src: "/subtitles/hindi.vtt",
-  //       srcLang: "hi",
-  //       label: "Hindi",
-  //     },
-  //   ],
-  // };
-
-
-
-  // Inside your VideoPage component...
-
 
   const handlePlayerReady = (player) => {
     playerRef.current = player;
@@ -152,37 +111,60 @@ export default function VideoPage() {
     }
   };
   return (
-    <section className="flex pt-26 px-16 justify-around items-start">
+    <section className=" px-16 mx-auto max-w-6xl">
       <div>
-        <div className="shrink-0 w-[860px]">
-          <div className="bg-black rounded-xl overflow-hidden max-h-[480px]">
+        <div className="">
+          <div className="bg-black rounded-xl overflow-hidden h-[70vh] ">
             <VideoPlayer options={videoJsOptions} onReady={handlePlayerReady} />
           </div>
 
-          <h1 className="text-xl font-bold mt-3 mb-16">
+          <h1 className="text-xl font-bold mt-3">
             {video.title}
           </h1>
         </div>
         <div className="">
-          <form onSubmit={handleComment}>
-            <input type="text" placeholder="Your comment" value={comment} onChange={(e) => { setComment(e.target.value) }} />
-            <button>Submit</button>
+          <form onSubmit={handleComment} className="relative flex items-center gap-2 w-full my-10">
+            <div className="relative flex-grow">
+              <input
+                type="text"
+                placeholder="Write a comment..."
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+                className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-[#0C4A6E] focus:border-transparent outline-none transition-all text-slate-700 placeholder:text-slate-400"
+              />
+            </div>
+
+            <button
+              type="submit"
+              disabled={!comment.trim()}
+              className="bg-[#0C4A6E] text-white px-5 py-3 rounded-xl font-semibold hover:bg-[#073652] active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
+            >
+              Submit
+            </button>
           </form>
           {video.comments?.map((c, index) => (
-            <div key={index} className="border-b py-2">
-              <p className="text-sm font-bold text-blue-400">
-                {typeof c.user === 'object' ? c.user.username : "Just now"}
-              </p>
-              <p>{c.text}</p>
+            <div
+              key={index}
+              className="group my-3 rounded-lg bg-slate-50 p-4 transition-all  border border-transparent relative"
+            >
+
+              <div className="flex items-center gap-2">
+                <div className="h-6 w-6 rounded-full bg-[#0C4A6E] flex items-center justify-center text-[10px] text-white font-bold">
+                  {(typeof c.user === 'object' ? c.user.username : "J").charAt(0).toUpperCase()}
+                </div>
+
+                <span className="text-[10px] absolute top-2 right-10 uppercase tracking-wider text-slate-400 font-medium">
+                  {typeof c.user !== 'object' ? "Just now" : ""}
+                </span>
+                <p className="text-slate-700 leading-relaxed pl-8">
+                  {c.text}
+                </p>
+              </div>
+
+
             </div>
           ))}
         </div>
-      </div>
-
-      <div className="flex-1">
-        {videos.map((v) => (
-          <VideoComponent key={v._id?.toString()} video={v} />
-        ))}
       </div>
     </section>
   );

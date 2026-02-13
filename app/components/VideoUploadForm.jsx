@@ -52,8 +52,8 @@ export default function VideoUploadForm() {
   };
 
   const onSubmit = async (data) => {
-    if (!data.videoUrl) {
-      showNotification("Please upload a video first", "error");
+ if (!data.videoUrl || !data.thumbnailUrl) {
+      showNotification("Please wait for both video and thumbnail to upload", "error");
       return;
     }
 
@@ -138,14 +138,14 @@ export default function VideoUploadForm() {
             onProgress={handleUploadProgress}
           />
 
-          {/* {uploadProgress > 0 && (
+          {uploadProgress > 0 && (
             <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
               <div
                 className="bg-sky-900 h-2 rounded-full"
                 style={{ width: `${uploadProgress}%` }}
               />
             </div>
-          )} */}
+          )}
 
 
           <div className="w-full h-32 bg-gray-200 rounded-lg overflow-hidden flex items-center justify-center mt-3">

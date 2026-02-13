@@ -31,7 +31,7 @@ export default function Sidebar() {
                 ${isExpanded ? "lg:px-6" : "lg:justify-center  lg:px-2"}
               `}
             >
-             <div className="bg-[#0C4A6E]/10 p-2 rounded-xl">
+             <div className={`bg-[#0C4A6E]/10 ${isExpanded ? "" : "mx-auto"}  p-2 rounded-xl`}>
                  <item.icon size={24 } strokeWidth={isExpanded ? 1.5 : 2}  />
              </div>
               

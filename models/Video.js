@@ -1,8 +1,8 @@
 import { Schema, model, models } from "mongoose";
 
 export const VIDEO_DIMENSIONS = {
-  width: 940,
-  height: 520,
+  width: 1280,
+  height: 720,
 }
 
 
@@ -33,6 +33,7 @@ const videoSchema = new Schema(
       ref: "User",
       required: true
     },
+    default:[]
     }, { timestamps: true }]
   },
   { timestamps: true }

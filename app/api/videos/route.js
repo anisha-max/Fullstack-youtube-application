@@ -3,12 +3,15 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "../../../lib/auth";
 import { connectToDB } from "../../../lib/mongodb";
 import Video from "../../../models/Video";
-import { comment } from "postcss";
 
-export async function GET() {
+export async function GET(request) {
   try {
+    const { searchParams } = new URL(request.url);
+    const page = parseInt(searchParams.get("page")) || 1;
+    const limit = parseInt(searchParams.get("limit")) || 12;
+    const skip = (page - 1) * limit;
     await connectToDB();
-    const videos = await Video.find({}).sort({ createdAt: -1 }).populate("user", "username coverImage").populate({
+    const videos = await Video.find({}).sort({ createdAt: -1 }).skip(skip).limit(limit).populate("user", "username coverImage").populate({
     path: "comments.user", 
     select: "coverImage" 
   }).lean();
@@ -61,7 +64,6 @@ export async function POST(request) {
         width: 1080,
         quality: body.transformation?.quality ?? 100,
       },
-      comments:[]
     };
 
     const newVideo = await Video.create(videoData);

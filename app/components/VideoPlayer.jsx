@@ -43,7 +43,7 @@ export default function VideoPlayer({ options, onReady }) {
 
   return (
     <div data-vjs-player>
-      <div
+      <div className="w-full"
         ref={videoRef}
       />
     </div>
