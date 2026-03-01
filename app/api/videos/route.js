@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "../../../lib/auth";
 import { connectToDB } from "../../../lib/mongodb";
 import Video from "../../../models/Video";
+import User from "../../../models/User";
 
 export async function GET(request) {
   try {
@@ -67,7 +68,13 @@ export async function POST(request) {
     };
 
     const newVideo = await Video.create(videoData);
-    return NextResponse.json(newVideo);
+    if(newVideo){
+       await User.findByIdAndUpdate(session.user.id , {
+        $push:{
+          videos:newVideo._id
+        }},{ new: true })
+    }
+    return NextResponse.json(newVideo , {status:201});
   } catch (error) {
     console.error("Error creating video:", error);
     return NextResponse.json(

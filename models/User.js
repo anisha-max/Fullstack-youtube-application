@@ -7,8 +7,7 @@ const userSchema = new Schema({
     password: { type: String, required: [true, "password required"] },
     coverImage: { type: String, required: true },
   watchHistory: [{ type: Schema.Types.ObjectId, ref: "Video" }],
-   
-
+    videos: [{ type: Schema.Types.ObjectId, ref: "Video" }],
 }, { timestamps: true })
 
 userSchema.pre("save" ,async function(next){

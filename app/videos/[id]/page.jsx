@@ -12,11 +12,13 @@ const urlEndpoint = process.env.NEXT_PUBLIC_URL_ENDPOINT;
 export default function VideoPage() {
   const { id } = useParams();
   const [video, setVideo] = useState(null);
-  const [videos, setVideos] = useState([]);
   const [comment, setComment] = useState("")
   const playerRef = useRef(null);
   const { data: session } = useSession();
   const userId = session?.user?.id;
+  const [isSubscribed, setIsSubscribed] = useState(false);
+
+
 
   const videoJsOptions = useMemo(() => {
     if (!video) return null;
@@ -57,12 +59,6 @@ export default function VideoPage() {
     await apiClient.addHistory(userId, id);
   };
 
-  useEffect(() => {
-    apiClient
-      .getVideos()
-      .then(setVideos)
-      .catch(console.error);
-  }, []);
 
 
   useEffect(() => {
@@ -70,7 +66,10 @@ export default function VideoPage() {
 
     apiClient
       .getVideo(id)
-      .then(setVideo)
+      .then((data) => {
+        setVideo(data.video)
+        setIsSubscribed(data.isSubscribed)
+      })
       .catch(console.error);
   }, [id]);
 
@@ -95,6 +94,15 @@ export default function VideoPage() {
     });
   };
 
+  const handleSubscribe = async () => {
+    try {
+      const response = await apiClient.subscribe(video.user);
+      // Toggle the state based on the backend response
+      setIsSubscribed(response.subscribed);
+    } catch (error) {
+      console.log("error subscribing", error)
+    }
+  }
   const handleComment = async (e) => {
     e.preventDefault();
     if (!comment.trim() || !userId) return;
@@ -110,6 +118,7 @@ export default function VideoPage() {
       console.error("Failed to post comment:", error);
     }
   };
+
   return (
     <section className=" px-16 mx-auto max-w-6xl">
       <div>
@@ -118,9 +127,22 @@ export default function VideoPage() {
             <VideoPlayer options={videoJsOptions} onReady={handlePlayerReady} />
           </div>
 
-          <h1 className="text-xl font-bold mt-3">
-            {video.title}
-          </h1>
+          <div className="flex justify-between mt-5">
+            <h1 className="text-xl font-bold mt-3">
+              {video.title}
+            </h1>
+            {session?.user && video.user === session.user.id && (
+              <button
+                onClick={handleSubscribe}
+                className={`px-4 py-2 rounded-xl font-bold transition-all cursor-pointer ${isSubscribed
+                    ? "bg-slate-200 text-slate-700"
+                    : "bg-red-800 text-white hover:bg-red-700"
+                  }`}
+              >
+                {isSubscribed ? "Subscribed" : "Subscribe"}
+              </button>
+            )}
+          </div>
         </div>
         <div className="">
           <form onSubmit={handleComment} className="relative flex items-center gap-2 w-full my-10">

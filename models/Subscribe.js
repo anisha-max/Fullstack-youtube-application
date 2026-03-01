@@ -6,5 +6,6 @@ const subscribeSchema  = new Schema({
 },{timestamps:true})
 
 const Subscribe = models?.Subscribe || model("Subscribe" , subscribeSchema)
+subscribeSchema.index({ subscriber: 1, channel: 1 }, { unique: true });
 
 export default Subscribe
