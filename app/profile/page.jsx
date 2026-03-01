@@ -46,7 +46,7 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className=" px-4">
+    <div className=" px-4 pt-2">
       <div className="rounded-3xl overflow-hidden border border-slate-100">
         <div className="h-32 w-full bg-gradient-to-r from-[#0C4A6E] to-[#073652]"></div>
 
@@ -54,7 +54,7 @@ export default function ProfilePage() {
           <div className="relative -mt-12 mb-4 flex justify-between items-end">
             <Image
               className="w-32 h-32 rounded-2xl border-4 border-white shadow-md object-cover bg-white"
-              src={`${urlEndpoint}${user?.image}`}
+              src={`${urlEndpoint}${user?.coverImage}`}
               alt="Profile"
               width={100}
               height={200}
@@ -79,7 +79,7 @@ export default function ProfilePage() {
           <hr className="my-8 border-slate-100" />
 
           {/* Stats/Overview Section */}
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-2 gap-4">
             <div className="bg-slate-50 p-4 rounded-2xl text-center">
               <p className="text-2xl font-bold text-[#0C4A6E]">{user?.videos.length || 0}</p>
               <p className="text-xs text-slate-500 uppercase tracking-wider font-semibold">Videos</p>
@@ -87,10 +87,6 @@ export default function ProfilePage() {
             <div className="bg-slate-50 p-4 rounded-2xl text-center">
               <p className="text-2xl font-bold text-[#0C4A6E]">{subscriber || 0}</p>
               <p className="text-xs text-slate-500 uppercase tracking-wider font-semibold">Subscribers</p>
-            </div>
-            <div className="bg-slate-50 p-4 rounded-2xl text-center">
-              <p className="text-2xl font-bold text-[#0C4A6E]">0</p>
-              <p className="text-xs text-slate-500 uppercase tracking-wider font-semibold">Views</p>
             </div>
           </div>
         </div>

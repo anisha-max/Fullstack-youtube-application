@@ -73,7 +73,7 @@ export default function VideoPage() {
       .catch(console.error);
   }, [id]);
 
-  if (!video) return <p>Loading...</p>;
+  if (!video) return <p className="pt-5 text-center flex justify-center">Loading...</p>;
 
   const handlePlayerReady = (player) => {
     playerRef.current = player;
@@ -120,7 +120,7 @@ export default function VideoPage() {
   };
 
   return (
-    <section className=" px-16 mx-auto max-w-6xl">
+    <section className=" px-16 pt-5 mx-auto max-w-6xl">
       <div>
         <div className="">
           <div className="bg-black rounded-xl overflow-hidden h-[70vh] ">

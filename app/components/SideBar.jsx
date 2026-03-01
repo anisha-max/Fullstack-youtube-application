@@ -6,7 +6,7 @@ import { useSidebar } from "./context/SidebarContext";
 
 const menuItems = [
   { icon: Home, label: "Home", href: "/" },
-  { icon: PlaySquare, label: "Subscriptions", href: "/subs" },
+  { icon: PlaySquare, label: "Upload Video", href: "/upload" },
   { icon: History, label: "History", href: "/view-history" },
   { icon: User, label: "You", href: "/profile" },
 ];
@@ -27,7 +27,7 @@ export default function Sidebar() {
             <Link
               key={item.label}
               href={item.href}
-              className={`flex items-center p-2 lg:py-3 space-x-3 hover:bg-[#0C4A6E]/10 rounded-xl mx-2 transition-all
+              className={`flex items-center p-2 lg:py-3 space-x-3  rounded-xl mx-2 transition-all
                 ${isExpanded ? "lg:px-6" : "lg:justify-center  lg:px-2"}
               `}
             >

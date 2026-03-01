@@ -87,7 +87,7 @@ export default function VideoUploadForm() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="max-w-2xl mx-auto p-6  rounded-2xl space-y-6 text-black shadow my-2"
+      className="max-w-2xl mx-auto p-6  rounded-2xl space-y-6 text-black shadow my-2 "
     >
       <h2 className="text-2xl font-semibold t[#0C4A6E] mb-4">
         Upload a New Video
@@ -138,14 +138,14 @@ export default function VideoUploadForm() {
             onProgress={handleUploadProgress}
           />
 
-          {uploadProgress > 0 && (
+          {/* {uploadProgress > 0 && (
             <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
               <div
                 className="bg-sky-900 h-2 rounded-full"
                 style={{ width: `${uploadProgress}%` }}
               />
             </div>
-          )}
+          )} */}
 
 
           <div className="w-full h-32 bg-gray-200 rounded-lg overflow-hidden flex items-center justify-center mt-3">
@@ -202,10 +202,10 @@ export default function VideoUploadForm() {
       <button
         type="submit"
         disabled={loading || !uploadProgress || !uploadThumbnailProgress}
-        className="bg-sky-900 text-white py-2 px-4 rounded"
+        className="bg-sky-900 text-white py-2 px-4 rounded cursor-pointer"
       >
         {loading ? (
-          <span className="flex items-center gap-2">
+          <span className="flex items-center gap-2 ">
             <Loader2 className="w-4 h-4 animate-spin" />
             Publishing Video...
           </span>

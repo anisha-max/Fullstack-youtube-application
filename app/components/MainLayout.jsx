@@ -12,7 +12,7 @@ export default function MainLayout({ children }) {
       <div className="flex">
         <Sidebar />
         <main
-          className={`flex-1 pt-5 transition-all duration-300 ease-in-out pl-0 
+          className={`flex-1 transition-all duration-300 ease-in-out pl-0 
             ${isExpanded ? "lg:pl-60" : "lg:pl-[72px]"}`}
         >
           {children}

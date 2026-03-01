@@ -23,7 +23,7 @@ export default function History() {
     fetchVideos();
   }, []);
 
-  if (loading) return <div>Loading history...</div>;
+  if (loading) return <div className="flex justify-center pt-20">Loading history...</div>;
 
   return (
     <main className="container mx-auto px-4  py-5">

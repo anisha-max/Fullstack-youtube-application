@@ -6,12 +6,13 @@ import { Menu, Search, SlidersHorizontal, X } from "lucide-react";
 import { useNotification } from "./Notification";
 import { useSearch } from "./context/SearchContext";
 import { useSidebar } from "./context/SidebarContext";
+import { usePathname } from "next/navigation";
 
 function Header() {
   const { data: session } = useSession();
   const { showNotification } = useNotification();
   const { query, setQuery } = useSearch();
-  
+  const pathname = usePathname();
   const { toggleSidebar, isMobileOpen, setIsMobileOpen } = useSidebar();
 
   const handleSignOut = async () => {
@@ -28,7 +29,7 @@ function Header() {
   };
 
   return (
-    <header className="w-full sticky top-0 z-50 bg-gray-50 backdrop-blur border-b border-[#BAE6FD]">
+    <header className="w-full sticky top-0 z-50 bg-gray-50 backdrop-blur border-b border-[#BAE6FD] h-[10vh]">
       <nav className="px-4 py-4 flex items-center gap-4 relative">
         
         {/* Toggle Button */}
@@ -49,7 +50,7 @@ function Header() {
         </Link>
 
         {/* Search */}
-        <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 w-full max-w-xl px-4">
+        {pathname === "/" && (<div className="hidden md:flex absolute left-1/2 -translate-x-1/2 w-full max-w-xl px-4">
           <form
             onSubmit={handleSearch}
             className="flex items-center w-full rounded-full border border-[#BAE6FD] pl-4 focus-within:ring-2 focus-within:ring-[#075985] transition bg-white"
@@ -69,7 +70,7 @@ function Header() {
               <Search className="w-5 h-5" />
             </button>
           </form>
-        </div>
+        </div>)}
 
         {/* Right section */}
         <div className="ml-auto hidden md:flex items-center gap-4">
@@ -83,14 +84,14 @@ function Header() {
               </Link>
               <button
                 onClick={handleSignOut}
-                className="bg-[#0C4A6E] hover:bg-[#075985] text-[#E0F2FE] rounded-xl px-4 py-2 text-sm font-medium transition"
+                className="bg-[#0C4A6E] hover:bg-[#075985] text-[#E0F2FE] rounded-xl px-4 py-2 text-sm font-medium transition cursor-pointer"
               >
                 Sign Out
               </button>
             </>
           ) : (
             <>
-              <Link href="/login" className="text-sm font-medium text-[#0C4A6E] hover:underline">
+              <Link href="/login"    className="border border-[#0C4A6E] text-[#0C4A6E] hover:bg-[#0C4A6E] hover:text-[#E0F2FE] transition rounded-xl px-4 py-2 text-sm font-medium">
                 Login
               </Link>
               <Link

@@ -53,14 +53,23 @@ export default function Home() {
   );
   return (
     <main className="container mx-auto px-4 py-5">
+      {filteredVideos.length === 0 && !loading ? (
+      <p className="text-center text-slate-400 mt-10">
+        No videos found
+      </p>
+    ) : (
+ <>
       <VideoFeed
         videos={filteredVideos}
         loading={loading}
         lastVideoElementRef={lastVideoElementRef}
       />
-      {!hasMore && !deferredQuery && (
+            {!hasMore && !deferredQuery && (
         <p className="text-center text-slate-400 mt-10">You've reached the end!</p>
       )}
+      </>
+    )}
+
     </main>
   );
 }
