@@ -131,7 +131,7 @@ export default function VideoPage() {
             <h1 className="text-xl font-bold mt-3">
               {video.title}
             </h1>
-            {session?.user && video.user === session.user.id && (
+            {session?.user && video.user !== session.user.id && (
               <button
                 onClick={handleSubscribe}
                 className={`px-4 py-2 rounded-xl font-bold transition-all cursor-pointer ${isSubscribed

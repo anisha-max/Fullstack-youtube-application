@@ -9,7 +9,7 @@ export default function VideoFeed({ videos, loading, lastVideoElementRef }) {
           return (
             <VideoComponent 
               ref={isLastElement ? lastVideoElementRef : null} 
-              key={video._id?.toString() || index} 
+              key={video._id?.toString()} 
               video={video} 
             />
           );

@@ -21,7 +21,8 @@ export default function Home() {
         if (data.length === 0) {
           setHasMore(false)
         } else {
-          setVideos((prev) => [...prev, ...data]);
+          // setVideos((prev) => [...prev, ...data]);
+           setVideos(() => [ ...data]);
         }
 
       } catch (error) {

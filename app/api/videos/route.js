@@ -4,6 +4,8 @@ import { authOptions } from "../../../lib/auth";
 import { connectToDB } from "../../../lib/mongodb";
 import Video from "../../../models/Video";
 import User from "../../../models/User";
+import Subscribe from "../../../models/Subscribe";
+import Notification from "../../../models/Notification";
 
 export async function GET(request) {
   try {
@@ -13,9 +15,9 @@ export async function GET(request) {
     const skip = (page - 1) * limit;
     await connectToDB();
     const videos = await Video.find({}).sort({ createdAt: -1 }).skip(skip).limit(limit).populate("user", "username coverImage").populate({
-    path: "comments.user", 
-    select: "coverImage" 
-  }).lean();
+      path: "comments.user",
+      select: "coverImage"
+    }).lean();
 
     if (!videos || videos.length === 0) {
       return NextResponse.json([], { status: 200 });
@@ -68,13 +70,29 @@ export async function POST(request) {
     };
 
     const newVideo = await Video.create(videoData);
-    if(newVideo){
-       await User.findByIdAndUpdate(session.user.id , {
-        $push:{
-          videos:newVideo._id
-        }},{ new: true })
+    if (newVideo) {
+      await User.findByIdAndUpdate(session.user.id, {
+        $push: {
+          videos: newVideo._id
+        }
+      }, { new: true })
+
+     const subscribers = await Subscribe.find({
+  channel: session.user.id,
+});
+
+if (subscribers.length > 0) {
+  const notifications = subscribers.map((sub) => ({
+    userId: sub.subscriber,
+    title: "New Video Uploaded",
+    message: `${session.user.name} uploaded a new video`,
+    link: `/videos/${newVideo._id}`,
+  }));
+
+  await Notification.insertMany(notifications);
+}
     }
-    return NextResponse.json(newVideo , {status:201});
+    return NextResponse.json(newVideo, { status: 201 });
   } catch (error) {
     console.error("Error creating video:", error);
     return NextResponse.json(

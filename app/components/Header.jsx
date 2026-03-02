@@ -7,6 +7,10 @@ import { useNotification } from "./Notification";
 import { useSearch } from "./context/SearchContext";
 import { useSidebar } from "./context/SidebarContext";
 import { usePathname } from "next/navigation";
+import { Bell } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import NotificationDropdown from "./NotificationDropdown";
+
 
 function Header() {
   const { data: session } = useSession();
@@ -14,6 +18,11 @@ function Header() {
   const { query, setQuery } = useSearch();
   const pathname = usePathname();
   const { toggleSidebar, isMobileOpen, setIsMobileOpen } = useSidebar();
+  const [open, setOpen] = useState(false);
+  const [notifications, setNotifications] = useState([]);
+  const bellRef = useRef(null);
+
+  const unreadCount = notifications.filter(n => !n.isRead).length;
 
   const handleSignOut = async () => {
     try {
@@ -27,6 +36,22 @@ function Header() {
   const handleSearch = (e) => {
     e.preventDefault();
   };
+  useEffect(() => {
+    fetch("/api/notification")
+      .then(res => res.json())
+      .then(setNotifications);
+  }, []);
+  
+    useEffect(() => {
+    function handleClickOutside(e) {
+      if (bellRef.current && !bellRef.current.contains(e.target)) {
+        setOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
     <header className="w-full sticky top-0 z-50 bg-gray-50 backdrop-blur border-b border-[#BAE6FD] h-[10vh]">
@@ -88,6 +113,24 @@ function Header() {
               >
                 Sign Out
               </button>
+                          <div ref={bellRef} className="relative">
+      <button onClick={() => setOpen(!open)} className="relative cursor-pointer">
+        <Bell size={22} />
+
+        {unreadCount > 0 && (
+          <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs px-1 rounded-full">
+            {unreadCount}
+          </span>
+        )}
+      </button>
+
+      {open && (
+        <NotificationDropdown
+          notifications={notifications}
+          setNotifications={setNotifications}
+        />
+      )}
+    </div>
             </>
           ) : (
             <>
