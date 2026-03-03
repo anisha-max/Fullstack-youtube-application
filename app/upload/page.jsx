@@ -11,10 +11,7 @@ export default function VideoUploadPage() {
   useEffect(() => {
     if (status === "loading") return; 
 
-    if (!session) {
-      router.push("/login");
-    }
-  }, [session, status, router]);
+  }, [ status, router]);
 
   if (status === "loading" || !session) {
     return <p>Loading...</p>;

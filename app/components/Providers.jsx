@@ -22,7 +22,7 @@ export default function Providers({ children }) {
   };
 
   return (
-    <SessionProvider refetchInterval={5 * 60}>
+    <SessionProvider>
       <NotificationProvider>
           <SidebarProvider>
                 <SearchProvider>
